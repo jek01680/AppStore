@@ -53,17 +53,12 @@ final class RankingFeatureCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    func setup(rankingFeature: RankingFeature){
         setupLayout()
         
-        titleLabel.text = "앱 이름"
-        descLabel.text = "어쩐저쩐 앱입니다."
-        inAppPurchaseInfoLabel.isHidden = [true, false].randomElement() ?? true
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        titleLabel.text = rankingFeature.title
+        descLabel.text = rankingFeature.description
+        inAppPurchaseInfoLabel.isHidden = !rankingFeature.isInPurchaseApp
     }
 }
 

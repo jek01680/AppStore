@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 final class AppDetailViewController: UIViewController {
+    private var today: Today
+    
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
@@ -45,8 +47,19 @@ final class AppDetailViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
         button.tintColor = .systemBlue
+        button.addTarget(self, action: #selector(didTapShareButton), for: .touchUpInside)
         return button
     }()
+    
+    init(today: Today){
+        self.today = today
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,8 +68,8 @@ final class AppDetailViewController: UIViewController {
         setView()
         
         imageView.backgroundColor = .lightGray
-        titleLabel.text = "title"
-        descLabel.text = "desc"
+        titleLabel.text = today.title
+        descLabel.text = today.subTitle
     }
     
 }
@@ -95,5 +108,11 @@ private extension AppDetailViewController {
             $0.trailing.equalTo(titleLabel.snp.trailing)
             $0.bottom.equalTo(imageView.snp.bottom)
         }
+    }
+    
+    @objc func didTapShareButton() {
+        let activityItems: [Any] = [today.title]
+        let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        present(activityViewController, animated: true, completion: nil)
     }
 }
