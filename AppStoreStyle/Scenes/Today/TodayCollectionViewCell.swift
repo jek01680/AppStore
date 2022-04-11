@@ -50,6 +50,7 @@ final class TodayCollectionViewCell: UICollectionViewCell {
         descriptionLabel.text = "설명설명"
         titleLabel.text = "앱 이름"
     }
+    
 }
 
 private extension TodayCollectionViewCell {
